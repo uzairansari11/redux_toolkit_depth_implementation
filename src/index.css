@@ -1,120 +1,147 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #000;
-  color: #ffffff;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background: #000;
+	color: #ffffff;
 }
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
 
 #counterDiv {
-  text-align: center;
-  font-size: 30px;
+	text-align: center;
+	font-size: 30px;
 }
 .buttonClass {
-  background-color: #4caf50;
-  display: block;
-  width: 400px;
-  margin: auto !important;
-  border: none;
-  color: white;
-  padding: 15px 40px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
+	background-color: #4caf50;
+	display: block;
+	width: 400px;
+	margin: auto !important;
+	border: none;
+	color: white;
+	padding: 15px 40px;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 article {
-  border: 3px solid grey;
-  max-width: 60%;
-  min-height: 200px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: 20px 30px;
-  gap: 10px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  height: 200px;
-  position: relative;
-  width: 800px;
+	border: 3px solid grey;
+	max-width: 60%;
+	min-height: 200px;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	padding: 20px 30px;
+	gap: 10px;
+	border-radius: 5px;
+	box-sizing: border-box;
+	height: 200px;
+	position: relative;
+	width: 800px;
 }
 article::after {
-  content: "";
-  position: absolute;
-  top: 8%;
-  left: 3%;
-  width: 100%;
-  height: 100%;
-  background: #387adf;
-  z-index: -1;
-  border-radius: 5px;
+	content: "";
+	position: absolute;
+	top: 8%;
+	left: 3%;
+	width: 100%;
+	height: 100%;
+	background: #387adf;
+	z-index: -1;
+	border-radius: 5px;
 }
 
 .postListHeading {
-  text-align: center;
-  padding-bottom: 20px;
-  border-bottom: 2px solid goldenrod;
-  margin: 20px 0px;
+	text-align: center;
+	padding-bottom: 20px;
+	border-bottom: 2px solid goldenrod;
+	margin: 20px 0px;
 }
 
 .postListContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 40px;
-  max-height: 50vh;
-  overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	gap: 40px;
+	max-height: 50vh;
+	overflow-y: scroll;
 }
 
 .addPostHeading {
-  text-align: center;
-  padding: 5px 3px;
-  margin: 10px 5px;
+	text-align: center;
+	padding: 5px 3px;
+	margin: 10px 5px;
 }
 form {
-  border: 1px solid grey;
-  display: flex;
-  flex-direction: column;
-  max-width: 60%;
-  margin: auto;
-  gap: 20px;
-  padding: 20px;
+	border: 1px solid grey;
+	display: flex;
+	flex-direction: column;
+	max-width: 60%;
+	margin: auto;
+	gap: 10px;
+	padding: 5px;
 }
 
 form input,
 form button,
 form select {
-  padding: 10px 5px;
-  outline: none;
+	padding: 5px 5px;
+	outline: none;
 }
 
 form label {
-  font-size: large;
+	font-size: large;
+	padding: 0;
 }
 
 .reactionButton {
-  border: none;
-  padding: 5px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
+	border: none;
+	padding: 5px;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 5px;
 }
 
 :not(:last-child).reactionButton {
-  margin-right: 5px;
+	margin-right: 5px;
+}
+
+.loaderContainer {
+	padding: 0;
+	margin: 0;
+	border: 16px solid white;
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	animation: spin 2s linear infinite;
+}
+
+.loaderContainer {
+	padding: 0;
+	margin: 0;
+	border-top: 16px solid blue;
+	border-radius: 50%;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
