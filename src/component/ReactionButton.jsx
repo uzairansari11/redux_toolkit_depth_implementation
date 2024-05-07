@@ -9,12 +9,12 @@ const ReactionButton = ({ post }) => {
 			<button
 				key={name}
 				onClick={() =>
-					dispatch(addReaction({ postId: post.id, reaction: name }))
+					dispatch(addReaction({ postId: post?.id, reaction: name }))
 				}
 				className="reactionButton"
 			>
 				<span>{emoji}</span>
-				<span>{post.reaction[name]}</span>
+				<span>{post?.reaction[name]}</span>
 			</button>
 		);
 	});

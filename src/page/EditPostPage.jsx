@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewPost } from "../globalState/feature/posts/postsSlice";
+import {
+	deletePost,
+	postsSelectorById,
+	updatePost,
+} from "../globalState/feature/posts/postsSlice";
 import { userSelector } from "../globalState/feature/users/usersSlice";
-const AddPostForm = () => {
+import { useNavigate, useParams } from "react-router-dom";
+const EditPostPage = () => {
+	const { postId } = useParams();
+	const navigation = useNavigate();
+	const post = useSelector((state) => postsSelectorById(state, Number(postId)));
 	const users = useSelector(userSelector);
-	const [title, setTitle] = useState("");
-	const [content, setContent] = useState("");
-	const [userId, setUserId] = useState("");
+	const [title, setTitle] = useState(post?.title || "");
+	const [content, setContent] = useState(post?.body || "");
+	const [userId, setUserId] = useState(post?.userId || "");
 	const [addRequestStatus, setAddRequestStatus] = useState("idle");
 	const canSave =
 		[title, content, userId].every(Boolean) && addRequestStatus === "idle";
@@ -33,10 +41,19 @@ const AddPostForm = () => {
 		if (canSave) {
 			try {
 				setAddRequestStatus("pending");
-				dispatch(addNewPost({ title, body: content, userId })).unwrap();
+				dispatch(
+					updatePost({
+						id: post.id,
+						title,
+						body: content,
+						userId,
+						reaction: post.reaction,
+					})
+				).unwrap();
 				setTitle("");
 				setContent("");
 				setUserId("");
+				navigation(`/post/${post.id}`, { replace: true });
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -44,6 +61,30 @@ const AddPostForm = () => {
 			}
 		}
 	};
+
+	const onDeleteClicked = () => {
+		try {
+			setAddRequestStatus("pending");
+			dispatch(
+				deletePost({
+					id: post.id,
+					title,
+					body: content,
+					userId,
+					reaction: post.reaction,
+				})
+			).unwrap();
+			setTitle("");
+			setContent("");
+			setUserId("");
+			navigation(`/`, { replace: true });
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setAddRequestStatus("idle");
+		}
+	};
+
 	const userOptions = users.map((user) => {
 		return (
 			<option key={user.id} value={user.id}>
@@ -66,7 +107,7 @@ const AddPostForm = () => {
 				/>
 				<label htmlFor="postAuthor">Post Author</label>
 
-				<select onChange={onUserChange} value={userId}>
+				<select onChange={onUserChange} defaultValue={userId} value={userId}>
 					<option value="" key="">
 						Select User
 					</option>
@@ -84,10 +125,12 @@ const AddPostForm = () => {
 				<button disabled={!canSave} onClick={onSavePostClicked} type="button">
 					Save Post
 				</button>
+				<button onClick={onDeleteClicked} type="button">
+					Delete Post
+				</button>
 			</form>
-		
 		</section>
 	);
 };
 
-export default AddPostForm;
+export default EditPostPage;

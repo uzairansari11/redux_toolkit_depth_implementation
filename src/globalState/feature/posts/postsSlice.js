@@ -27,6 +27,28 @@ export const addNewPost = createAsyncThunk("posts/addNewPost", async (data) => {
 		return error.message;
 	}
 });
+
+export const updatePost = createAsyncThunk("posts/updatePost", async (data) => {
+	try {
+		const response = await axios.put(
+			`${process.env.REACT_APP_BASE_URL}/posts/${data.id}`,
+			data
+		);
+		return response.data;
+	} catch (error) {
+		return error.message;
+	}
+});
+export const deletePost = createAsyncThunk("posts/deletePost", async (data) => {
+	try {
+		const response = await axios.delete(
+			`${process.env.REACT_APP_BASE_URL}/posts/${data.id}`
+		);
+		return { status: response.status, id: data.id };
+	} catch (error) {
+		return error.message;
+	}
+});
 export const postsSlice = createSlice({
 	name: "posts",
 	initialState,
@@ -101,6 +123,25 @@ export const postsSlice = createSlice({
 				};
 				console.log(action.payload);
 				state.posts.push(action.payload);
+			})
+			.addCase(updatePost.fulfilled, (state, action) => {
+				if (!action.payload.id) {
+					console.log("Post can not be updated");
+					console.log(action.payload);
+					return;
+				}
+				const { id } = action.payload;
+
+				const post = state.posts.filter((post) => post.id !== id);
+				state.posts = [...post, action.payload];
+			})
+			.addCase(deletePost.fulfilled, (state, action) => {
+				if (action.payload.status === 200) {
+					const post = state.posts.filter(
+						(post) => post.id !== action.payload.id
+					);
+					state.posts = post;
+				}
 			});
 	},
 });
@@ -108,5 +149,7 @@ export const postsSlice = createSlice({
 export const postsSelector = (state) => state.posts.posts;
 export const getPostStatus = (state) => state.posts.status;
 export const getPostError = (state) => state.posts.error;
+export const postsSelectorById = (state, postId) =>
+	state.posts.posts.find((post) => post.id === postId);
 export const { postAdded, addReaction } = postsSlice.actions;
 export default postsSlice.reducer;

@@ -37,7 +37,7 @@ code {
 
 article {
 	border: 3px solid grey;
-	max-width: 60%;
+	background: rgb(39, 38, 38);
 	min-height: 200px;
 	margin: auto;
 	display: flex;
@@ -49,9 +49,9 @@ article {
 	box-sizing: border-box;
 	height: 200px;
 	position: relative;
-	width: 800px;
+	max-width: 70%;
 }
-article::after {
+/* article::after {
 	content: "";
 	position: absolute;
 	top: 8%;
@@ -61,7 +61,7 @@ article::after {
 	background: #387adf;
 	z-index: -1;
 	border-radius: 5px;
-}
+} */
 
 .postListHeading {
 	text-align: center;
@@ -73,11 +73,11 @@ article::after {
 .postListContainer {
 	display: flex;
 	flex-direction: column;
+	max-width: 100%;
+	gap: 30px;
+	justify-content: center;
 	align-items: center;
-	width: 100%;
-	gap: 40px;
-	max-height: 50vh;
-	overflow-y: scroll;
+	padding: 50px 0px;
 }
 
 .addPostHeading {
@@ -144,4 +144,30 @@ form label {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+.blogHeader {
+	display: flex;
+	max-width: 100%;
+	margin: auto;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: grey;
+}
+.blogHeader nav {
+	display: flex;
+}
+
+.blogHeader nav li {
+	list-style-type: none;
+	margin: 0 10px;
+	color: #ffffff;
+}
+.blogHeader nav li a {
+	text-decoration: none;
+	color: #ffffff;
 }
