@@ -8,25 +8,29 @@
 
 # createSelector
 
-### createSelector lets you memoize the selector
+### createSelector lets you memoize the selector given by redux toolkit.
 
 ```
-this function will be inside post slice file
-const postsSelector = (state)=>state.posts.postData
+ This function will be inside post slice file
+
+export const postsSelector = (state)=>state.posts.postData
 
 This will give a new reference all the time because filter will return a new array all the time so to memoize this we can use createSelector!
 
 
 const postForUser = useSelector((state) => {
+
 		const allPost = postsSelector(state);
+
 		return allPost.filter((post) => {
+
 			return post.userId === Number(userId);
+            
 		});
-	});
+
+});
 
 
-this functions will be inside post slice file
-const postsSelector = (state)=>state.posts.postData
 
 const getPostByUserId =createSelector(
 
