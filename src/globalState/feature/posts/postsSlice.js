@@ -1,10 +1,16 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+	createSlice,
+	nanoid,
+	createAsyncThunk,
+	createSelector,
+} from "@reduxjs/toolkit";
 import { sub } from "date-fns";
 import axios from "axios";
 const initialState = {
 	posts: [],
 	status: "idle", // 'idle' 'loading' 'success' 'failed'
 	error: null,
+	count: 0,
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
@@ -83,6 +89,10 @@ export const postsSlice = createSlice({
 				postExists.reaction[reaction] += 1;
 			}
 		},
+		incrementCountPost: (state, action) => {
+			console.log("increm", state.count);
+			state.count = state.count + 1;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -146,10 +156,21 @@ export const postsSlice = createSlice({
 	},
 });
 
-export const postsSelector = (state) => state.posts.posts;
+export const postsSelector = (state) => {
+	// console.log(state, "state from post selector");
+	return state.posts.posts;
+};
 export const getPostStatus = (state) => state.posts.status;
 export const getPostError = (state) => state.posts.error;
-export const postsSelectorById = (state, postId) =>
-	state.posts.posts.find((post) => post.id === postId);
-export const { postAdded, addReaction } = postsSlice.actions;
+export const getCount = (state) => state.posts.count;
+export const postsSelectorById = (state, postId) => {
+	return state.posts.posts.find((post) => post.id === postId);
+};
+
+export const getPostByUserId = createSelector(
+	[postsSelector, (state, userId) => userId],
+	(posts, userId) => posts.filter((c) => c.userId === userId)
+);
+export const { postAdded, addReaction, incrementCountPost } =
+	postsSlice.actions;
 export default postsSlice.reducer;

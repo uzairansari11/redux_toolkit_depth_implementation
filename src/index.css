@@ -153,10 +153,10 @@ form label {
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px;
-  position: sticky;
-  top: 0;
-  z-index: 4;
-  background: grey;
+	position: sticky;
+	top: 0;
+	z-index: 4;
+	background: grey;
 }
 .blogHeader nav {
 	display: flex;
@@ -170,4 +170,21 @@ form label {
 .blogHeader nav li a {
 	text-decoration: none;
 	color: #ffffff;
+}
+
+.userListPage > h2 {
+	text-align: center;
+}
+
+.userListPage > ol {
+	text-decoration: none;
+	color: white;
+	text-align: left;
+}
+
+.userListPage > ol > li > a {
+	text-decoration: none;
+	color: white;
+  display: inline-block;
+  margin-top: 20px;
 }

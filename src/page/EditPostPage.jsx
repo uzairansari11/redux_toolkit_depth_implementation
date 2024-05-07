@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	deletePost,
@@ -12,9 +12,9 @@ const EditPostPage = () => {
 	const navigation = useNavigate();
 	const post = useSelector((state) => postsSelectorById(state, Number(postId)));
 	const users = useSelector(userSelector);
-	const [title, setTitle] = useState(post?.title || "");
-	const [content, setContent] = useState(post?.body || "");
-	const [userId, setUserId] = useState(post?.userId || "");
+	const [title, setTitle] = useState("");
+	const [content, setContent] = useState("");
+	const [userId, setUserId] = useState("");
 	const [addRequestStatus, setAddRequestStatus] = useState("idle");
 	const canSave =
 		[title, content, userId].every(Boolean) && addRequestStatus === "idle";
@@ -92,6 +92,12 @@ const EditPostPage = () => {
 			</option>
 		);
 	});
+
+	useEffect(() => {
+		setTitle(post?.title);
+		setContent(post?.body);
+		setUserId(post?.userId);
+	}, [post?.body, post?.title, post?.userId]);
 	return (
 		<section>
 			<h2 className="addPostHeading">Add A Post</h2>
